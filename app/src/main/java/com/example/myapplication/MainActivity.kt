@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 class MainActivity : AppCompatActivity() {
 
     // Trailing slash is needed
-    val BASE_URL : String = "http://10.0.2.2:3000/"
+    val BASE_URL : String = "https://testapi-app.herokuapp.com/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +45,12 @@ class MainActivity : AppCompatActivity() {
         // GET /books.json
         service.getBooks()
             .enqueue(object : Callback<List<Book>> {
-                override fun onResponse(call: Call<List<Book>>, response: Response<List<Book>>) {
+                override fun onResponse(call: Call<List<BookResponse>>, response: Response<List<BookResponse>>) {
                     response.body()?.forEach { println("TAG_: ${it}") }
+                    println(response.body())
                 }
 
-                override fun onFailure(call: Call<List<Book>>, t: Throwable) = t.printStackTrace()
+                override fun onFailure(call: Call<List<BookResponse>>, t: Throwable) = t.printStackTrace()
             })
 
         // Get a book by id
